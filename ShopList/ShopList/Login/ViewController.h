@@ -10,6 +10,10 @@
 
 @interface ViewController : UIViewController
 
+- (IBAction)onClickSignIn:(id)sender;
+- (IBAction)onClickSignUp:(id)sender;
+- (IBAction)onClickFacebook:(id)sender;
+- (IBAction)onClickGooglePlus:(id)sender;
 
 @end
 

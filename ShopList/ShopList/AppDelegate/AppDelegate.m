@@ -42,4 +42,48 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+#pragma mark -
+#pragma mark - sharedAppDelegate
+
++(AppDelegate *)sharedAppDelegate
+{
+    return (AppDelegate *)[[UIApplication sharedApplication] delegate];
+}
+
+#pragma mark -
+#pragma mark - Hide and Show Loading View
+
+-(void)showHUDLoadingView:(NSString *)strTitle
+{
+    if (HUD==nil) {
+        HUD = [[MBProgressHUD alloc] initWithView:self.window];
+        HUD.delegate = self;
+        HUD.dimBackground=YES;
+        [self.window addSubview:HUD];
+    }
+    [self.window bringSubviewToFront:HUD];
+    HUD.detailsLabelText=[strTitle isEqualToString:@""] ? @"Loading...":strTitle;
+    [HUD show:YES];
+}
+
+-(void)hideHUDLoadingView
+{
+    [HUD hide:YES];
+}
+
+-(void)showToastMessage:(NSString *)message
+{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.window
+                                              animated:YES];
+    
+    hud.detailsLabelFont=[UIFont systemFontOfSize:25.0];
+    // Configure for text only and offset down
+    hud.mode = MBProgressHUDModeText;
+    hud.detailsLabelText = message;
+    hud.margin = 10.f;
+    hud.yOffset = 150.f;
+    hud.removeFromSuperViewOnHide = YES;
+    [hud hide:YES afterDelay:2.0];
+}
+
 @end
